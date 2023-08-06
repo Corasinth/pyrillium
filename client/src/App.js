@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-
+import React, { useState } from 'react';
+import './App.css'
 
 // --------------------------TO DO--------------------------
 
@@ -26,13 +26,51 @@ import React, {useState} from 'react';
 
 
 function App() {
+  // -------------------------------------------- VARIABLES --------------------------------------------
+  const cssStyle = document.querySelector(':root')
+  const retrievedJSON = localStorage.getItem('pyrilliumProfileData')
+  let pyrilliumProfileData = {
+    theme: {
+      savedThemes: {},
+      currentColors: {
+        // HEADER
+        // NAVIGATION
+        // NEW EXPENSE
+        // VIEW DATA
+        // STATISTICS
+        // SETTINGS
+        // FOOTER
+      }
+    }
+  }
+
+  // -------------------------------------------- LOAD THEME --------------------------------------------
+  if (!retrievedJSON) {
+    localStorage.setItem('pyrilliumProfileData', JSON.stringify(pyrilliumProfileData))
+  } else {
+    pyrilliumProfileData = JSON.parse(retrievedJSON)
+  }
+
+  const keys = Object.keys(pyrilliumProfileData.theme.currentColors)
+  for (let i = 0; i < keys.length; i++) {
+    console.log(keys[i], pyrilliumProfileData.theme.currentColors[keys[i]])
+    cssProp(keys[i], pyrilliumProfileData.theme.currentColors[keys[i]])
+
+  }
+
+
+  // -------------------------------------------- UTILITY FUNCTIONS --------------------------------------------
+  function cssProp(propertyName, propertyValue) {
+    cssStyle.style.setProperty(`--${propertyName}`, propertyValue)
+  }
+
+
+  // -------------------------------------------- NAV BAR FUNCTIONS --------------------------------------------
+
+
+
   return (
     <>
-      <header>
-        <nav>
-
-        </nav>
-      </header>
 
       <main>
         <div>
@@ -40,9 +78,6 @@ function App() {
         </div>
       </main>
 
-      <footer>
-
-      </footer>
     </>
   );
 }
